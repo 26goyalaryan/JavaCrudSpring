@@ -15,26 +15,39 @@ public class ProductService {
     // ----------------------- PUT Methods ---------------------------------
 
     // Both save and savaAll methods are given by spring JPA
-    public Product saveProduct(Product product){
+    public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
-    public List<Product> saveProducts(List<Product> products){
+
+    public List<Product> saveProducts(List<Product> products) {
         return productRepository.saveAll(products);
     }
 
-    public List<Product> getProducts(){
+    public List<Product> getProducts() {
         return productRepository.findAll();
     }
 
     // ----------------------- GET Methods ---------------------------------
-    public Product getProduct(int id){
+    public Product getProduct(int id) {
         return productRepository.findById(id).orElse(null); // return the optional
     }
 
-    public Product getProductByName(String name){
+    public Product getProductByName(String name) {
         return productRepository.findByName(name);
     }
 
     // ----------------------- DELETE Methods ---------------------------------
-    
+
+    public String removeProduct(int id) {
+        productRepository.deleteById(id);
+        return "Product removed || " + id;
+    }
+
+    public Product updateProduct(Product product) {
+        Product existingProduct = productRepository.findById(product.getId()).orElse(null);
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setQuantity(product.getQuantity());
+        return productRepository.save(existingProduct);
+    }
 }

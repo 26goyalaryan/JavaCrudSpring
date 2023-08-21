@@ -1,9 +1,6 @@
 package com.crud.springbootcrud.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -15,9 +12,8 @@ import org.springframework.context.annotation.Primary;
 @Entity
 @Table(name = "PRODUCT_TBL")
 public class Product {
-
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Id
-    @GeneratedValue
     private int id;
     private String name;
     private double price;
