@@ -18,12 +18,12 @@ public class ProductController {
         return productService.getProducts();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/productById/{id}")
     public Product findById(@PathVariable int id) {
         return productService.getProduct(id);
     }
 
-    @GetMapping("/product/{name}")
+    @GetMapping("/productByName/{name}")
     public Product findByName(@PathVariable String name) {
         return productService.getProductByName(name);
     }
