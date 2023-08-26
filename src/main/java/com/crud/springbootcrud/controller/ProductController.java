@@ -3,6 +3,8 @@ package com.crud.springbootcrud.controller;
 import com.crud.springbootcrud.entity.Product;
 import com.crud.springbootcrud.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class ProductController {
     }
 
     @GetMapping("/productById/{id}")
-    public Product findById(@PathVariable int id) {
-        return productService.getProduct(id);
+    public ResponseEntity<Product> findById(@PathVariable int id) {
+        return ResponseEntity.ok(productService.getProduct(id));
     }
 
     @GetMapping("/productByName/{name}")
@@ -29,22 +31,22 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public Product addProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<Product> addProducts(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
     }
 
     @PostMapping("/addProducts")
-    public List<Product> addProducts(@RequestBody List<Product> products) {
-        return productService.saveProducts(products);
+    public ResponseEntity<List<Product>> addProducts(@RequestBody List<Product> products) {
+        return new ResponseEntity<>(productService.saveProducts(products), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public Product update(Product product){
-        return productService.updateProduct(product);
+    public ResponseEntity<Product> update(Product product) {
+        return new ResponseEntity<>(productService.updateProduct(product), HttpStatus.OK);
     }
 
-    @DeleteMapping ("/delete/{id}")
-    public String deleteProduct(@PathVariable int id){
+    @DeleteMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable int id) {
         return productService.removeProduct(id);
     }
 }
